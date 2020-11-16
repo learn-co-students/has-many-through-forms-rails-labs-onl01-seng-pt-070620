@@ -1,1 +1,10 @@
+<h1>Post Title: <%= @post.title %></h1>
+<h1>Post Content: <%= @post.content %></h1>
+<h1>Post Categories: <%= @post.categories %></h1>
+<h1>Post Comments: <%= @post.comments %></h1>
+
+<h1>Commented Users:</h1>
+<% @post.comments.each do |comment| %>
+    <%= comments.user.name %>
+<% end %>
 
