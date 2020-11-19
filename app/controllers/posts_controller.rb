@@ -9,11 +9,12 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    3.times { @post.categories.build(:name => "sample category") }
   end
 
   def create
-    post = Post.create(post_params)
-    redirect_to post
+      post = Post.create(post_params) 
+      redirect_to post
   end
 
   private
