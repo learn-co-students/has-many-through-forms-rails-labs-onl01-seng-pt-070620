@@ -20,8 +20,10 @@
 
 <h1>Users who commented on this post</h1>
     <ul>
-        <% @post.users.uniq.each do |user| %>
-            <li><%= link_to user.username, user_path(user) %>
+        <% @post.users.distinct.each do |user| %>
+            <li>
+                <%= link_to user.username, user_path(user) %>
+            </li>
         <% end %>
     </ul>
 
@@ -29,18 +31,20 @@
 
 <%= form_for @post.comments.build do |f|%>
   <%= f.hidden_field :post_id %>
-  <%= f.text_area :content %>
-<br>
-  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Choose a User" %>
-<br>
-  Create A User to Write As:
-  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields|%>
- <br>
-    Username:
-    <%= user_fields.text_field :username %>
-    Email:
-    <%= user_fields.text_field :email %>
+  <p>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Choose a User" %>
+    </p>
+
+    Create A User to Write As:
+  <%= f.fields_for :user, User.new do |user_fields|%>
+        <%= user_fields.label :username %>
+        <%= user_fields.text_field :username %>
   <% end %>
 
+  <p>
+    <%= f.label :content, "New Comment" %><br>
+    <%= f.text_area :content %>
+  </p>
+    <br>
   <%= f.submit %>
 <% end %>
