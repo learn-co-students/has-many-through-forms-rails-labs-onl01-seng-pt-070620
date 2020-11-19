@@ -12,9 +12,11 @@
     <% end %>
 
 <h1>Post Comments:</h1>
-    <% @post.comments.each do |comment| %>
-        <%= comment.content %>
-    <% end %>
+    <ul>
+        <% @post.comments.each do |comment| %>
+            <li><%= comment.user.username %> says: <%= comment.content %></li>
+        <% end %>
+    </ul>
 
 <h1>Users who commented on this post</h1>
     <ul>
@@ -23,17 +25,22 @@
         <% end %>
     </ul>
 
-<h1>Comment on this post</h1>
-   
-    <%= form_for @comment do |f| %>
-        <%= f.label "Comment" %>
-        <%= f.text_area :content %>
+<h2>Create A New Comment:</h2>
 
-        <%= f.collection_select :user, User.all, :id, :username %>
+<%= form_for @post.comments.build do |f|%>
+  <%= f.hidden_field :post_id %>
+  <%= f.text_area :content %>
+<br>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Choose a User" %>
+<br>
+  Create A User to Write As:
+  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields|%>
+ <br>
+    Username:
+    <%= user_fields.text_field :username %>
+    Email:
+    <%= user_fields.text_field :email %>
+  <% end %>
 
-        <%= f.fields_for :users, post.users.build do |users_fields| %>
-            <%= users_fields.text_field :username %>
-            <%= f.hidden_field :user_id, value: @user.id %>
-        <% end %>
-        <%= f.submit "Create Comment "%>
-    <% end %>
+  <%= f.submit %>
+<% end %>
