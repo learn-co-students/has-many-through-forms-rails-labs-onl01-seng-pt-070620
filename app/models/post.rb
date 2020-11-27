@@ -17,12 +17,12 @@ class Post < ActiveRecord::Base
   end
 
 
-#   def comments_attributes=(comment_attributes)
-#     comment_attributes.values.each do |comment_attribute| 
-#       if comment_attribute[:content].present?
-#       comment = Comment.find_or_create_by(comment_attribute)
-#       self.comments << comment
-#       end
-#     end
-#   end
-# end
+  def comments_attributes=(comment_attributes)
+    comment_attributes.values.each do |comment_attribute| 
+      if comment_attribute[:content].present?
+      comment = Comment.find_or_create_by(comment_attribute)
+      self.comments << comment
+      end
+    end
+  end
+end

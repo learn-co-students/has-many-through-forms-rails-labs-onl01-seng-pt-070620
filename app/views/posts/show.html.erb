@@ -14,6 +14,8 @@
   <li><%= comment.user.username %> says: <%= comment.content %></li>
 <% end %>
 
+<h2>Existing Users:</h2>
+
 <ul>
     <% @post.users.uniq.each do |user| %>
     <li><%= link_to user.username, user_path(user) %></li>
@@ -22,18 +24,16 @@
 
 <h2>Create A New Comment:</h2>
 
-<%= form_for @post.comments.build do |f|%>
-  <%= f.hidden_field :post_id %>
-  <%= f.text_area :content %>
-<br>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.text_area :content %><br>
+  <h3>Existing User</h3>
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Choose a User" %>
-<br>
-  Create A User to Write As:
+  <h3>New User: </h3>
   <%= f.fields_for :user, @post.comments.last.build_user do |user_fields|%>
- <br>
-    Username:
+    <%= f.label :username %>
     <%= user_fields.text_field :username %>
-    Email:
+    <%= f.label :email %>
     <%= user_fields.text_field :email %>
   <% end %>
 
