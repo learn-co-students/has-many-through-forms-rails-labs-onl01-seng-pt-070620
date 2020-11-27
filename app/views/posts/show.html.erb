@@ -14,7 +14,9 @@
 <% end %>
 
 <ul>
-    <li><%= link_to @user.username, user_path(@user) %> commented <%= @user.comments.count %> time </li>
+    <% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %> commented <%= user.comments.count %> time </li>
+    <% end %>
 </ul>
 
 <%= form_for @comment do |f| %>
