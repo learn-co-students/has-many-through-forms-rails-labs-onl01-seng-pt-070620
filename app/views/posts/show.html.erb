@@ -24,13 +24,13 @@
 
 <h2>Create A New Comment:</h2>
 
-<%= form_for @post.comments.build do |f| %>
+<%= form_for @comment do |f| %>
   <%= f.hidden_field :post_id, value: @post.id %>
   <%= f.text_area :content %><br>
   <h3>Existing User</h3>
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Choose a User" %>
   <h3>New User: </h3>
-  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields|%>
+  <%= f.fields_for :user, @comment.build_user do |user_fields|%>
     <%= f.label :username %>
     <%= user_fields.text_field :username %>
     <%= f.label :email %>
