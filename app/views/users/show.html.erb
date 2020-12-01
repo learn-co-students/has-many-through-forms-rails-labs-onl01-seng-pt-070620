@@ -1,1 +1,10 @@
+<h1><%= @user.username %></h1>
+
+Comments:<br />
+<ul>
+    <% @user.comments.each do |c| %>
+        <li><%= c.content %></li>
+        <li><%= link_to Post.find(c.post_id).title, post_path(c.post_id) %></li>
+    <% end %>
+</ul>
 
