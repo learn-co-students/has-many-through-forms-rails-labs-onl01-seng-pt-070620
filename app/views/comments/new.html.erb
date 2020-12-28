@@ -1,0 +1,20 @@
+<h3>New Comment: </h3>
+
+<%= form_for(@comment) do |f| %>
+
+    <p>
+        <%= f.label :content, "Content", for: 'comment_content' %>
+        <%= f.text_area :content, { :id => 'comment_content' } %>
+    </p>
+
+    <%= f.collection_select :user, User.all, :id, :username %>
+
+    <%= f.fields_for :user do |user_builder| %>
+        <%= user_builder.text_field :username %>
+    <% end %>
+
+    <%= f.hidden_field :post_id %>
+
+    <%= f.submit %>
+
+<% end %>
