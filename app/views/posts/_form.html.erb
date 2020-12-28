@@ -1,1 +1,26 @@
+<%= form_for(@post) do |f| %>
 
+    <p>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+    </p>
+
+    <p>
+        <%= f.label :content %>
+        <%= f.text_area :content %>
+    </p>
+
+    <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
+        <p>
+            <%= b.label %>
+            <%= b.check_box %>
+        </p>
+    <% end %>
+
+    <%= f.fields_for :categories do |category_biulder| %>
+        <%= category_biulder.text_field :name %>
+    <% end %>
+
+    <%= f.submit %>
+
+<% end %>

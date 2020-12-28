@@ -1,1 +1,30 @@
+<h1> <%= @post.title %> </h1>
+<p>
+    <%= @post.content %>
+</p>
+
+Categories: <br />
+<ul>
+    <% @post.categories.each do |c| %>
+        <li><%= c.name %></li>
+    <% end %>
+</ul>
+
+Comments: <br />
+<ul>
+    <% @post.comments.each do |comment| %>
+        <li>
+        <%= comment.content %>
+        </li>
+    <% end %> 
+</ul>
+<%= link_to "Add Comment", new_comment_path(post_id: @post.id) %> <br>
+Users: <br />
+<ul>
+    <% @users.each do |user| %>
+        <li>
+        <%= link_to user.username, user_path(user) %>
+        </li>
+    <% end %> 
+</ul>
 
